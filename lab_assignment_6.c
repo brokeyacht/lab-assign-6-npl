@@ -1,8 +1,17 @@
 #include <stdio.h>
 
-int search(int numbers[], int low, int high, int value) 
-{
-	return -1;
+int search(int numbers[], int low, int high, int value) {
+    if (high >= low) {
+        int mid = low + (high - low) / 2;
+        if (numbers[mid] == value) {
+            return mid;
+        } else if (numbers[mid] > value) {
+            return search(numbers, low, mid - 1, value);
+        } else {
+            return search(numbers, mid + 1, high, value);
+        }
+    }
+    return -1;
 }
 
 void printArray(int numbers[], int sz)
@@ -28,7 +37,7 @@ int main(void)
 	FILE* inFile = fopen("input.txt","r");
 
 	fscanf(inFile, " %d\n", &numInputs);
-	
+
 	while (numInputs-- > 0)
 	{
 		fscanf(inFile, " %d\n", &countOfNums);
